@@ -41,7 +41,7 @@ const RadioPlayer: React.FC = () => {
     return () => {
       clearInterval(timer);
     };
-  });
+  }, []);
 
   useEffect(() => {
     if (audioRef.current) {
