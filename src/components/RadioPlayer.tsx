@@ -9,6 +9,8 @@ const stations: Record<string, string> = {
   Radio_ZET: "https://stream.radiozet.pl/zet.aac",
 };
 
+const CLOCK_UPDATE_INTERVAL = 1000;
+
 const RadioPlayer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(1);
@@ -24,7 +26,7 @@ const RadioPlayer: React.FC = () => {
 
     const timer = setInterval(() => {
       setCurrentDateTime(new Date());
-    }, 1000);
+    }, CLOCK_UPDATE_INTERVAL);
 
     return () => {
       clearInterval(timer);
@@ -85,7 +87,10 @@ const RadioPlayer: React.FC = () => {
           </option>
         ))}
       </select>
-      <button onClick={togglePlayPause}>
+      <button
+        onClick={togglePlayPause}
+        aria-label={isPlaying ? "Pauza odtwarzania" : "Odtwórz audio"}
+      >
         {isPlaying ? "Pauza" : "Odtwórz"}
       </button>
       <div>

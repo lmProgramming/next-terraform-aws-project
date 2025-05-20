@@ -1,7 +1,5 @@
-// src/components/PrivacyPopup.tsx
 "use client";
 import React, { useState, useEffect } from "react";
-// Optional: import Link from 'next/link'; for internal privacy policy page
 
 const PrivacyPopup: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -21,43 +19,23 @@ const PrivacyPopup: React.FC = () => {
   if (!isVisible) return null;
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        background: "#333",
-        color: "white",
-        padding: "20px",
-        textAlign: "center",
-        zIndex: 1000,
-      }}
-    >
+    <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-5 text-center z-50">
       <p>
         Ta strona używa plików cookies oraz zbiera dane geolokalizacyjne w celu
         poprawy działania. Więcej informacji znajdziesz w naszej{" "}
-        {/* <Link href="/polityka-prywatnosci" style={{color: 'lightblue'}}>Polityce Prywatności</Link>. */}
         <a
           href="/polityka-prywatnosci.html"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: "lightblue" }}
+          className="text-blue-300 underline"
         >
           Polityce Prywatności
         </a>
         .
-        {/* Create a static polityka-prywatnosci.html in public/ or a Next.js page */}
       </p>
       <button
         onClick={handleAccept}
-        style={{
-          padding: "10px 20px",
-          background: "#4CAF50",
-          color: "white",
-          border: "none",
-          cursor: "pointer",
-        }}
+        className="mt-4 px-5 py-2 bg-green-600 text-white border-none rounded cursor-pointer hover:bg-green-700"
       >
         Akceptuję
       </button>
