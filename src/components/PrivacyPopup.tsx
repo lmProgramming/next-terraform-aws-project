@@ -21,15 +21,15 @@ const PrivacyPopup: React.FC = () => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-5 text-center z-50">
       <p>
-        Ta strona używa plików cookies oraz zbiera dane geolokalizacyjne w celu
-        poprawy działania. Więcej informacji znajdziesz w naszej{" "}
+        This website uses cookies and collects geolocation date in order to work
+        better. You can find more info at our{" "}
         <a
-          href="/polityka-prywatnosci.html"
+          href="/privacy-policy.html"
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-300 underline"
         >
-          Polityce Prywatności
+          Privacy Policy
         </a>
         .
       </p>
@@ -38,7 +38,7 @@ const PrivacyPopup: React.FC = () => {
         onClick={handleAccept}
         className="mt-4 px-5 py-2 bg-green-600 text-white border-none rounded cursor-pointer hover:bg-green-700"
       >
-        Akceptuję
+        Accept
       </button>
     </div>
   );

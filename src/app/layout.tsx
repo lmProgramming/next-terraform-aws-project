@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Radio Internetowe",
-  description: "Słuchaj ulubionego radia online!",
+  title: "Internet Radio 6000",
+  description: "Tune in to your favorite radio station online!",
 };
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pl">
+    <html lang="en">
       <body className={inter.className}>{children}</body>
     </html>
   );

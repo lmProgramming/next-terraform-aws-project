@@ -26,17 +26,22 @@ const RadioPlayer: React.FC = () => {
     audioRef.current = new Audio(stations[currentStation]);
     audioRef.current.volume = volume;
 
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+  }, [currentStation, volume]);
+
+  useEffect(() => {
     const timer = setInterval(() => {
       setCurrentDateTime(new Date());
     }, CLOCK_UPDATE_INTERVAL);
 
     return () => {
       clearInterval(timer);
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
     };
-  }, [currentStation, volume]);
+  });
 
   useEffect(() => {
     if (audioRef.current) {
@@ -61,7 +66,7 @@ const RadioPlayer: React.FC = () => {
     } else {
       audioRef.current.pause();
     }
-  }, [isPlaying, volume]);
+  }, [isPlaying]);
 
   const togglePlayPause = () => {
     setIsPlaying((prevIsPlaying) => !prevIsPlaying);
@@ -81,7 +86,7 @@ const RadioPlayer: React.FC = () => {
 
   return (
     <div className="radio-player">
-      <h2>Odtwarzacz Radiowy</h2>
+      <h2>Radio Player 3000</h2>
       <select value={currentStation} onChange={handleStationChange}>
         {Object.keys(stations).map((station) => (
           <option key={station} value={station}>
@@ -91,12 +96,12 @@ const RadioPlayer: React.FC = () => {
       </select>
       <button
         onClick={togglePlayPause}
-        aria-label={isPlaying ? "Pauza odtwarzania" : "Odtwórz audio"}
+        aria-label={isPlaying ? "Pause" : "Play"}
       >
-        {isPlaying ? "Pauza" : "Odtwórz"}
+        {isPlaying ? "Pause" : "Play"}
       </button>
       <div>
-        <label htmlFor="volume-control">Głośność: </label>
+        <label htmlFor="volume-control">Volume: </label>
         <input
           id="volume-control"
           type="range"
@@ -110,8 +115,8 @@ const RadioPlayer: React.FC = () => {
       <div className="date-time">
         {hasMounted && (
           <>
-            <p>Data: {currentDateTime.toLocaleDateString()}</p>
-            <p>Godzina: {currentDateTime.toLocaleTimeString()}</p>
+            <p>Date: {currentDateTime.toLocaleDateString()}</p>
+            <p>Time: {currentDateTime.toLocaleTimeString()}</p>
           </>
         )}
       </div>
