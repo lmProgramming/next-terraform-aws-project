@@ -1,12 +1,12 @@
-// src/components/RadioPlayer.tsx
-"use client"; // For App Router
+"use client";
 
 import React, { useState, useRef, useEffect, ChangeEvent } from "react";
 
 const stations: Record<string, string> = {
   Antyradio: "http://redir.atmcdn.pl/sc/o2/Eurozet/live/antyradio.livx",
-  RMF_FM: "https://www.rmfon.pl/n/rmf_fm.pls",
-  Radio_ZET: "https://stream.radiozet.pl/zet.aac",
+  "Radio ZET": "https://n-4-6.dcs.redcdn.pl/sc/o2/Eurozet/live/audio.livx",
+  "Polskie Radio": "http://stream4.nadaje.com:9212/radiokatowice",
+  "Eska Wrocław": "https://waw.ic.smcdn.pl/2180-1.mp3",
 };
 
 const CLOCK_UPDATE_INTERVAL = 1000;
@@ -18,9 +18,11 @@ const RadioPlayer: React.FC = () => {
     Object.keys(stations)[0]
   );
   const [currentDateTime, setCurrentDateTime] = useState<Date>(new Date());
+  const [hasMounted, setHasMounted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
+    setHasMounted(true);
     audioRef.current = new Audio(stations[currentStation]);
     audioRef.current.volume = volume;
 
@@ -34,7 +36,7 @@ const RadioPlayer: React.FC = () => {
         audioRef.current.pause();
       }
     };
-  }, []); // Removed currentStation and volume from deps for initial setup only
+  }, [currentStation, volume]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -48,7 +50,7 @@ const RadioPlayer: React.FC = () => {
           .catch((error) => console.error("Error playing audio:", error));
       }
     }
-  }, [currentStation]); // Only re-run when currentStation changes
+  }, [currentStation, isPlaying, volume]);
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -59,7 +61,7 @@ const RadioPlayer: React.FC = () => {
     } else {
       audioRef.current.pause();
     }
-  }, [isPlaying, volume]); // Re-run when isPlaying or volume changes
+  }, [isPlaying, volume]);
 
   const togglePlayPause = () => {
     setIsPlaying((prevIsPlaying) => !prevIsPlaying);
@@ -106,8 +108,12 @@ const RadioPlayer: React.FC = () => {
         />
       </div>
       <div className="date-time">
-        <p>Data: {currentDateTime.toLocaleDateString()}</p>
-        <p>Godzina: {currentDateTime.toLocaleTimeString()}</p>
+        {hasMounted && (
+          <>
+            <p>Data: {currentDateTime.toLocaleDateString()}</p>
+            <p>Godzina: {currentDateTime.toLocaleTimeString()}</p>
+          </>
+        )}
       </div>
     </div>
   );
