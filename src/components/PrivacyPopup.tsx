@@ -34,6 +34,7 @@ const PrivacyPopup: React.FC = () => {
         .
       </p>
       <button
+        type="button"
         onClick={handleAccept}
         className="mt-4 px-5 py-2 bg-green-600 text-white border-none rounded cursor-pointer hover:bg-green-700"
       >

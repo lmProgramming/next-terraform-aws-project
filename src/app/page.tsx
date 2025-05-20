@@ -1,4 +1,3 @@
-// src/app/page.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -6,7 +5,7 @@ import RadioPlayer from "@/components/RadioPlayer"; // Using path alias
 import PrivacyPopup from "@/components/PrivacyPopup";
 
 interface BrowserInfo {
-  appName?: string; // navigator.appName is deprecated
+  vendor?: string;
   userAgent: string;
   platform: string;
 }
@@ -37,7 +36,7 @@ export default function HomePage() {
       }
 
       setBrowserInfo({
-        appName: navigator.appName, // Deprecated, but for consistency with instructions
+        vendor: navigator.appName, // Deprecated, but for consistency with instructions
         userAgent: navigator.userAgent,
         platform: navigator.platform,
       });
@@ -61,8 +60,8 @@ export default function HomePage() {
         {browserInfo && (
           <div className="browser-info">
             <h3>Informacje o przeglądarce:</h3>
-            {browserInfo.appName && (
-              <p>AppName (deprecated): {browserInfo.appName}</p>
+            {browserInfo.vendor && (
+              <p>AppName (deprecated): {browserInfo.vendor}</p>
             )}
             <p>User Agent: {browserInfo.userAgent}</p>
             <p>System: {browserInfo.platform}</p>
